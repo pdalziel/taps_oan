@@ -1,0 +1,26 @@
+{% extends 'taps_oan/base.html' %} {% load staticfiles %}
+
+{% block title_block %}
+    {{ pub.name }}
+{% endblock %}
+
+{% block body_block %}
+    {% if pub %}
+        <h1>{{ pub.name }}</h1>
+
+        {% if beers %}
+            <ul>
+            {% for beer in beers %}
+                <li><a href="{{ beer.url }}">{{ beer.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <strong>No beers currently in pub.</strong>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'add_beer' pub.slug %}">Add a Beer</a>
+        {% endif %}
+    {% else %}
+        The specified pub does not exist!
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'taps_oan/base.html' %} {% load staticfiles %}
+
+{% block title_block %}
+    Rango
+{% endblock %}
+
+{% block body_block %}
+    <h1>Rango says...</h1>
+    {% if user.is_authenticated %}
+	    howdy {{ user.username }}!
+	{% else %}
+	    hey there partner!
+	{% endif %}
+	<h1>Most Liked Pubs</h1>
+    <div>
+    {% if pubs %}
+    <ul>
+        {% for pub in pubs %}
+            <li>
+				<a href="/taps_oan/pub/{{ pub.slug }}">{{ pub.name }}</a>
+			</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <strong>There are no pubs present.</strong>
+    {% endif %}	
+    </div>
+	
+	<h1>Most Viewed Beers</h1>
+    <div>
+    {% if beers %}
+    <ul>
+        {% for beer in beers %}
+            <li>
+				<a href="{{ beer.url }}">{{ beer.title }}</a>
+			</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <strong>There are no beers present.</strong>
+    {% endif %}	
+    </div> 
+    <div>
+        <img src="{% static "images/taps_oan.jpg" %}" alt="Picture of Rango" /> 
+    </div>
+{% endblock %}
