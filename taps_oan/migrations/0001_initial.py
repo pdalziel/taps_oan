@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(unique=True)),
             ],
             options={
-                'verbose_name_plural': 'categories',
+                'verbose_name_plural': 'Pubs',
             },
         ),
         migrations.CreateModel(

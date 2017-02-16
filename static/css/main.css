@@ -12,7 +12,7 @@ body {
     display: block;
     width: 100%;
     text-align: center;
-    background: url('https://cdn.pixabay.com/photo/2015/03/20/05/02/beer-681807_960_720.jpg') no-repeat center center scroll;
+    background: url('../images/banner.jpg') no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -40,7 +40,9 @@ body {
     box-shadow: 5px 5px 5px #888888;
     padding: 2px;
 }
-.item_card > p {
+.item_card > a {
+    color: rgba(0,0,0,0.9);
+    text-decoration: none;
     padding-top: 5px;
     font-size: 17px;
 }

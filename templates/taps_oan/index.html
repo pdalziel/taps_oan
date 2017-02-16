@@ -35,7 +35,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Taps-Oan</a>
+                <a class="navbar-brand" href="/">Taps-Oan</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -84,7 +84,7 @@
                 <ul>
                     {% for pub in pubs %}
                         <ul class='item_card'>
-                                <p>{{ pub.name }}</p>
+                            <a href="/taps_oan/pub/{{ pub.slug }}">{{ pub.name }}</a>
                         </ul>
                     {% endfor %}
                 </ul>
