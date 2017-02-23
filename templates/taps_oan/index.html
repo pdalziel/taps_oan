@@ -1,150 +1,73 @@
+{% extends 'taps_oan/base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
+{% block title_block %}
+Index
+{% endblock %}
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static "images/icon.png" %}">
-    <title>Taps-Oan</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{% static "css/main.css" %}" rel="stylesheet">
-
-
-</head>
-
-<body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Taps-Oan</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-
-                        <a href="#login">Login</a>
-                    </li>
-                    <li>
-
-                        <a href="#register">Register</a>
-                    </li>
-                    <li>
-                        <a href="#contact">About</a>
-                    </li>
-                    <li>
-                        <a href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <!-- Full Width Image Header -->
-    <header class="header-image">
-        <div class="headline">
-            <div class="container">
-                <h1>Taps-Oan</h1>
-                <h2>Let the pints flow through ye.</h2>
-                <input id="main_search" type="text" placeholder="Search..."></input>
-            </div>
-        </div>
-    </header>
-
-    <!-- Page Content -->
+{% block header_block %}
+<!-- Full Width Image Header -->
+<header class="header-image">
+  <div class="headline">
     <div class="container">
-
-        <hr class="featurette-divider">
-
-        <!-- First Featurette -->
-        <div class="featurette" id="about">
-            <div class="pull-right img-responsive">
-                {% if pubs %}
-                <ul>
-                    {% for pub in pubs %}
-                        <ul class='item_card'>
-                            <a href="/taps_oan/pub/{{ pub.slug }}">{{ pub.name }}</a>
-                        </ul>
-                    {% endfor %}
-                </ul>
-                {% else %}
-                    <ul class='item_card'>
-                        <p>No pubs...yet!</p>
-                    </ul>
-                {% endif %}	
-            </div>
-                <h2 class="featurette-heading">Most Popular Pubs</h2>
-                <p class="lead">See the best pubs around you.</p>
-            </h2>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <!-- Second Featurette -->
-        <div class="featurette" id="services">
-            <div class="pull-right img-responsive">
-                {% if beers %}
-                <ul>
-                    {% for beer in beers %}
-                        <ul class='item_card'>
-                                <p>{{ beer.title }}</p>
-                        </ul>
-                    {% endfor %}
-                </ul>
-                {% else %}
-                    <ul class='item_card'>
-                        <p>No beer...yet!</p>
-                    </ul>
-                {% endif %}	
-            </div>
-            <h2 class="featurette-heading">Most Liked Beers</h2>
-                <p class="lead">Taste the best beers.</p>
-            </h2>
-        </div>
-
-        <hr class="featurette-divider">
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <b>Team R</b>
-                    <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-                    <div>Banner image credit goes to <a href ="https://pixabay.com/en/beer-beverage-drink-alcohol-glass-681807/">tykejones</a></div>
-                </div>
-            </div>
-        </footer>
-
+      <h1>Taps-Oan</h1>
+      <h2>Let the pints flow through ye.</h2>
+      <input id="main_search" type="text" placeholder="Search..."></input>
     </div>
-    <!-- /.container -->
+  </div>
+</header>
+{% endblock %}
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+{% block body_block %}
+  <!-- Page Content -->
+  <hr class="featurette-divider">
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+  <!-- First Featurette -->
+  <div class="featurette" id="about">
+    <div class="pull-right img-responsive">
+      {% if pubs %}
+      <ul>
+	{% for pub in pubs %}
+	<ul class='item_card'>
+          <a href="/taps_oan/pub/{{ pub.slug }}">{{ pub.name }}</a>
+	</ul>
+	{% endfor %}
+      </ul>
+      {% else %}
+      <ul class='item_card'>
+	<p>No pubs...yet!</p>
+      </ul>
+      {% endif %}	
+    </div>
+    <h2 class="featurette-heading">Most Popular Pubs</h2>
+    <p class="lead">See the best pubs around you.</p>
+  <!--</h2>-->
+  </div>
 
-</body>
+  <hr class="featurette-divider">
 
-</html>
+  <!-- Second Featurette -->
+  <div class="featurette" id="services">
+    <div class="pull-right img-responsive">
+      {% if beers %}
+      <ul>
+	{% for beer in beers %}
+	<ul class='item_card'>
+          <p>{{ beer.title }}</p>
+	</ul>
+	{% endfor %}
+      </ul>
+      {% else %}
+      <ul class='item_card'>
+	<p>No beer...yet!</p>
+      </ul>
+      {% endif %}	
+    </div>
+    <h2 class="featurette-heading">Most Liked Beers</h2>
+    <p class="lead">Taste the best beers.</p>
+    <!--</h2>-->
+  </div>
+  
+  <hr class="featurette-divider">
+
+  {% endblock %}
