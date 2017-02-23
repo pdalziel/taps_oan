@@ -74,6 +74,7 @@ def show_pub(request, pub_name_slug):
 		# Retrieve all of the associated beers.
 		# Note that filter() will return a list of beer objects or an empty list
 		beers = Beer.objects.filter(pub=pub)
+                #beers = Pub.objects.get(beers)
 
 		# Adds our results list to the template context under name beers.
 		context_dict['beers'] = beers
