@@ -4,7 +4,7 @@ from taps_oan.models import UserProfile
 
 class PubAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
-    list_beers = ('beers')
+    #list_beers = ('beers')
     
 class BeerAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('title',)}
