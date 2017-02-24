@@ -1,20 +1,22 @@
 {% extends 'taps_oan/base.html' %} {% load staticfiles %}
 
 {% block title_block %}
-    Rango
+    About
 {% endblock %}
 
 {% block body_block %}
-   <h1>Rango says...</h1>
+<h1>About Taps Oan</h1>
+<br>
         
-        <div>
-            This tutorial has been put together by David. <br />
-        </div>
-        <p> visits: {{ visits }}</p>    
-        <div>
-            <img src="{% static "images/taps_oan.jpg" %}"
-                 alt="Picture of Rango" /> <!-- New line -->
-			<img src={{ MEDIA_URL}}cat.jpg
-                 alt="Picture of a cat" /> <!-- New line -->
-        </div>
+<div>
+  <h3>Taps Oan was founded during a stressful time. Coursework was piling up, dissertation deadlines were looming - but this only further ignited our desire for a cold, soothing pint. We know some of you may be in the same situation, so we brought you this light in the dark.</h3> <br />
+</div>
+
+And a picture of a cat.
+<div>
+  <img src={{ MEDIA_URL}}cat.jpg
+       alt="Picture of a cat" />
+</div>
+<br>
+<p> visits: {{ visits }}</p>    
 {% endblock %}

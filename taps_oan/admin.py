@@ -4,9 +4,11 @@ from taps_oan.models import UserProfile
 
 class PubAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
-	
+    #list_beers = ('beers')
+    
 class BeerAdmin(admin.ModelAdmin):
-    list_display = ('title', 'pub', 'url')
+    prepopulated_fields = {'slug':('title',)}
+
 	
 admin.site.register(Pub, PubAdmin)
 admin.site.register(Beer,BeerAdmin)
