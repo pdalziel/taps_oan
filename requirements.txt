@@ -1,0 +1,9 @@
+Django==1.10.3
+coverage==4.3.4
+django-allauth==0.30.0
+oauthlib==2.0.1
+olefile==0.44
+pillow==4.0.0
+python-openid==2.2.5
+requests==2.13.0
+requests-oauthlib==0.8.0

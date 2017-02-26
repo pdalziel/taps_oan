@@ -91,6 +91,38 @@ def show_pub(request, pub_name_slug):
     # Go render the response and return it to the client.
 	return render(request, 'taps_oan/pub.html', context_dict)
 
+def show_beer(request, beer_name_slug):
+	# Create a context dictionary which we can pass 
+	# to the template rendering engine.
+	context_dict = {}
+	exception = False
+	try:
+		# Can we find a pub name slug with the given name?
+		# If we can't, the .get() method raises a DoesNotExist exception.
+		# So the .get() method returns one model instance or raises an exception.
+		beer = Beer.objects.get(slug=beer_name_slug)
+	except Beer.DoesNotExist:
+		# We get here if we didn't find the specified pub.
+		# Don't do anything - 
+		# the template will display the "no pub" message for us.
+		context_dict['beer'] = None
+		context_dict['pubs'] = None
+		exception = True
+	if not exception:
+		# Retrieve all of the associated beers.
+		# Note that filter() will return a list of beer objects or an empty list
+		#pubs = Pub.beers.filter(beers_in=beer)
+		pubs = Pub.objects.filter(beers__in=[beer])
+		# Adds our results list to the template context under name beers.
+		context_dict['pubs'] = list(pubs)
+		# We also add the pub object from 
+		# the database to the context dictionary.
+		# We'll use this in the template to verify that the pub exists.
+		context_dict['beer'] = beer
+		# Go render the response and return it to the client.
+		print context_dict['pubs']
+	return render(request, 'taps_oan/beer.html', context_dict)
+    
 @login_required
 def add_pub(request):
     form = PubForm()

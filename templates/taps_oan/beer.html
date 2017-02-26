@@ -3,19 +3,19 @@
 
 
 {% block title_block %}
-  {% if pub %}
-    {{ pub.name }}
+  {% if beer %}
+    {{ beer.title }}
   {% endif %}
 {% endblock %}
 
 
 {% block body_block %}
   <!-- Page Content -->
-  {% if pub %}
+  {% if beer %}
   <!-- Portfolio Item Heading -->
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">{{ pub.name }}</h1>
+      <h1 class="page-header">{{ beer.title }}</h1>
     </div>
   </div>
   <!-- /.row -->
@@ -28,20 +28,20 @@
     </div>
     
     <div class="col-md-4">
-      <h3>Beers in this pub</h3>
-      {% if beers %}
+      <h3>You can find this beer in the following pubs:</h3>
+      {% if pubs %}
       <ul>
-        {% for beer in beers %}
+        {% for pub in pubs %}
         <ul class='item_card'>
-          <a href="/taps_oan/beer/{{ beer.slug }}/">{{ beer.title }}</a>
+          <a href="/taps_oan/pub/{{ pub.slug }}">{{ pub.name }}</a>
         </ul>
         {% endfor %}
       </ul>
       {% else %}
-      <strong>No beers currently in pub.</strong>
+      <p><strong>Cannae find a pub</strong></p>
       {% endif %}
       {% if user.is_authenticated %}
-      <a href="{% url 'add_beer' pub.slug %}">Add a Beer</a>
+      <a href="{% url 'add_pub' %}">Add a Pub that carries this beer!</a>
       {% endif %}
     </div>
     
@@ -50,7 +50,7 @@
   <!-- Portfolio Item Heading -->
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">There's no pub here :(</h1>
+      <h1 class="page-header">There's no beer here :(</h1>
     </div>
   </div>
   <!-- /.row -->

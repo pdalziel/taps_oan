@@ -52,7 +52,7 @@ Index
       <ul>
 	{% for beer in beers %}
 	<ul class='item_card'>
-          <p>{{ beer.title }}</p>
+          <a href="/taps_oan/beer/{{ beer.slug }}">{{ beer.title }}</a>
 	</ul>
 	{% endfor %}
       </ul>
