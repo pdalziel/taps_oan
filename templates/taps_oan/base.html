@@ -12,10 +12,10 @@
     <!-- Favicon -->
     <link rel="shortcut icon" href="{% static "images/icon.png" %}">
     <title>
-      Taps-Oan -
-      {% block title_block %} 
-        Let the pints flow through ye.
-      {% endblock %}
+        Taps-Oan -
+        {% block title_block %}
+            Let the pints flow through ye.
+        {% endblock %}
     </title>
 
     <!-- Bootstrap Core CSS -->
@@ -28,65 +28,71 @@
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Taps-Oan</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-		{% if user.is_authenticated %}
-                  <li><a href="{% url 'logout' %}">Logout</a></li>
-		{% else %}
-                  <li><a href="{% url 'login' %}">Login</a></li>
-                  <li><a href="{% url 'register' %}">Register</a> </li>
-		{% endif %}
-                  <li><a href="{% url 'about' %}">About</a></li>
-                  <li><a href="#contact">Contact</a></li>
-              </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    {% block header_block %}
-    {% endblock %}
-
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-      
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Taps-Oan</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+{% block header_block %}
+{% endblock %}
+
+<div class="container">
+
     {% block body_block %}
+
     {% endblock %}
 
     <hr>
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <b>Team R</b>
-                    <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-                    <div>Banner image credit goes to <a href ="https://pixabay.com/en/beer-beverage-drink-alcohol-glass-681807/">tykejones</a></div>
-                </div>
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <b>Team R</b>
+                <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a>
+                    from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a
+                            href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0"
+                            target="_blank">CC 3.0 BY</a></div>
+                <div>Banner image credit goes to <a
+                        href="https://pixabay.com/en/beer-beverage-drink-alcohol-glass-681807/">tykejones</a></div>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-	
-    </div>
-    <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+</div>
+<!-- /.container -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+<!-- jQuery
+<script src="/jquery.js"></script> -->
 
-    </body>
+<!-- Bootstrap Core JavaScript -->
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+
+</body>
 </html>

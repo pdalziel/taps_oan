@@ -2,7 +2,9 @@ from __future__ import unicode_literals
 from django.template.defaultfilters import slugify
 from django.db import models
 from django.contrib.auth.models import User
-
+from allauth.socialaccount.models import SocialAccount
+from django.contrib.auth.models import User
+from allauth.account.models import EmailAddress
 
 
 class Beer(models.Model):
@@ -10,16 +12,17 @@ class Beer(models.Model):
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
-    
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Beer, self).save(*args, **kwargs)
 
-    def __str__(self):  
+    def __str__(self):
         return self.title
 
-	def __unicode__(self):
-	    return self.title
+    def __unicode__(self):
+            return self.title
+
 
 class Pub(models.Model):
     name = models.CharField(max_length=128, unique=True)
@@ -27,27 +30,28 @@ class Pub(models.Model):
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
-    
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Pub, self).save(*args, **kwargs)
-        
+
     class Meta:
         verbose_name_plural = 'Pubs'
-    
+
     def __str__(self):
         return self.name
-		
-	def __unicode__(self):
-	    return self.name
-		
-class UserProfile(models.Model): 
-	user = models.OneToOneField(User)
-	website = models.URLField(blank=True)
-	picture = models.ImageField(upload_to='profile_images', blank=True)
 
-	def __str__(self):
-		return self.user.username
+    def __unicode__(self):
+            return self.name
 
-	def __unicode__(self):
-		return self.user.username
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+    def __unicode__(self):
+        return self.user.username

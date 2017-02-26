@@ -1,11 +1,14 @@
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'project.settings')
 
 import django
 import random
+
 django.setup()
 from taps_oan.models import Beer, Pub
+
 
 def populate():
     # First, we will create lists of dictionaries containing the beers
@@ -40,7 +43,7 @@ def populate():
         {"title": "John Smith",
          "views": "41"},
         {"title": "Strongbow",
-         "views": "54"} ]
+         "views": "54"}]
 
     arbitrary_pubs = [
         {"name": "GUU",
@@ -56,8 +59,7 @@ def populate():
         {"name": "Coopers",
          "views": "17"},
         {"name": "Hillhead Bookclub",
-         "views": "23"} ]
-
+         "views": "23"}]
 
     for beer in arbitrary_beers:
         add_beer(beer["title"], beer["views"])
@@ -65,20 +67,20 @@ def populate():
     for pub in arbitrary_pubs:
         p = add_pub(pub["name"], pub["views"])
         for b in Beer.objects.all():
-            if (random.randint(0,10)<5):
+            if (random.randint(0, 10) < 5):
                 p.beers.add(b)
-                
+
     for check_pub in Pub.objects.all():
         for check_beer in check_pub.beers.all():
             print("- {0} - {1}".format(str(check_pub), str(check_beer)))
-            
-        
-    
+
+
 def add_pub(name, views):
     p = Pub.objects.get_or_create(name=name)[0]
     p.views = views
     p.save()
     return p
+
 
 def add_beer(title, views):
     b = Beer.objects.get_or_create(title=title)[0]
