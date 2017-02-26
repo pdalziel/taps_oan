@@ -75,6 +75,7 @@ def populate():
             print("- {0} - {1}".format(str(check_pub), str(check_beer)))
 
 
+            
 def add_pub(name, views):
     p = Pub.objects.get_or_create(name=name)[0]
     p.views = views
