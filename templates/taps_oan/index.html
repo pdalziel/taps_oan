@@ -29,7 +29,7 @@ Index
       <ul>
 	{% for pub in pubs %}
 	<ul class='item_card'>
-          <a href="/taps_oan/pub/{{ pub.slug }}">{{ pub.name }}</a>
+          <button type="button" class="btn btn-secondary btn-lg" href="/taps_oan/pub/{{ pub.slug }}">{{ pub.name }}</button>
 	</ul>
 	{% endfor %}
       </ul>
@@ -52,7 +52,7 @@ Index
       <ul>
 	{% for beer in beers %}
 	<ul class='item_card'>
-          <a href="/taps_oan/beer/{{ beer.slug }}">{{ beer.title }}</a>
+          <button type="button" class="btn btn-secondary btn-lg" href="/taps_oan/pub/{{ pub.slug }}">{{ beer.title }}</button>
 	</ul>
 	{% endfor %}
       </ul>
