@@ -41,7 +41,7 @@
       <p><strong>Cannae find a pub</strong></p>
       {% endif %}
       {% if user.is_authenticated %}
-      <a href="{% url 'add_pub' %}">Add a Pub that carries this beer!</a>
+      <a href="{% url 'add_carrier' beer.slug %}">Add a Pub that carries this beer!</a>
       {% endif %}
     </div>
     

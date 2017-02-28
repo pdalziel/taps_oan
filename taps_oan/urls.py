@@ -12,6 +12,8 @@ urlpatterns = [
         views.add_beer, name='add_beer'),
     url(r'^beer/(?P<beer_name_slug>[\w\-]+)/$', 
         views.show_beer, name='show_beer'),
+    url(r'^beer/(?P<beer_name_slug>[\w\-]+)/add_carrier/$',
+        views.add_carrier, name='add_carrier'),
     url(r'^register/$',
         views.register,name='register'),
     url(r'^login/$', 

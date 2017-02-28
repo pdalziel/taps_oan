@@ -41,7 +41,7 @@ def visitor_cookie_handler(request):
         request.session['last_visit'] = str(datetime.now())
     else:
         visits = 1
-        # set the last visit cookie 
+        # set the last visit cookie
         request.session['last_visit'] = last_visit_cookie
 
     # Update/set the visits cookie
@@ -63,7 +63,7 @@ def index(request):
 
 def about(request):
     if request.session.test_cookie_worked():
-        print("TEST COOKIE WORKED!")
+        print "TEST COOKIE WORKED!"
         request.session.delete_test_cookie()
     visitor_cookie_handler(request)
     context_dict = {'visits': request.session['visits']}
@@ -153,7 +153,7 @@ def add_pub(request):
         else:
             # The supplied form contained errors -
             # just print them to the terminal.
-            print(form.errors)
+            print form.errors
 
     # Will handle the bad form, new form, or no form supplied cases.
     # Render the form with error messages (if any).
@@ -178,10 +178,35 @@ def add_beer(request, pub_name_slug):
                 beer.save()
                 return show_pub(request, pub_name_slug)
         else:
-            print(form.errors)
+            print form.errors
 
     context_dict = {'form': form, 'pub': pub}
     return render(request, 'taps_oan/add_beer.html', context_dict)
+
+@login_required
+def add_carrier(request, beer_name_slug):
+    form = PubForm
+
+    try:
+        beer = Beer.objects.get(slug=beer_name_slug)
+    except Beer.DoesNotExist:
+        beer = None
+
+    if request.method == 'POST':
+        form = PubForm(request.POST)
+        if form.is_valid():
+            if beer:
+                pub, created = Pub.objects.get_or_create(**form.cleaned_data)
+                print pub
+                pub.beers.add(beer)
+                #pub.save()
+                return show_beer(request, beer_name_slug)
+        else:
+            print form.errors
+        
+    context_dict = {'form' : form, 'beer' : beer}
+    return render(request, 'taps_oan/add_carrier.html', context_dict)
+
 
 
 def register(request):
@@ -193,7 +218,7 @@ def register(request):
 
     # If it's a HTTP POST, we're interested in processing form data.
     if request.method == 'POST':
-        # Attempt to grab information from the raw form information.    
+        # Attempt to grab information from the raw form information.
         # Note that we make use of both UserForm and UserProfileForm.
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
@@ -209,14 +234,14 @@ def register(request):
             user.save()
 
             # Now sort out the UserProfile instance.
-            # Since we need to set the user attribute ourselves, 
-            # we set commit=False. This delays saving the model 
+            # Since we need to set the user attribute ourselves,
+            # we set commit=False. This delays saving the model
             # until we're ready to avoid integrity problems.
             profile = profile_form.save(commit=False)
             profile.user = user
 
             # Did the user provide a profile picture?
-            # If so, we need to get it from the input form and 
+            # If so, we need to get it from the input form and
             # put it in the UserProfile model.
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
@@ -277,7 +302,7 @@ def user_login(request):
                 return HttpResponse("Your Rango account is disabled.")
         else:
             # Bad login details were provided. So we can't log the user in.
-            print("Invalid login details: {0}, {1}".format(username, password))
+            print "Invalid login details: {0}, {1}".format(username, password)
             return HttpResponse("Invalid login details supplied.")
 
     # The request is not a HTTP POST, so display the login form.
