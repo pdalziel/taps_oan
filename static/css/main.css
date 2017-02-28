@@ -31,8 +31,11 @@ body {
 }
 .item_card {
 	text-align: center;
+    width: 100%;
 	height: 40px;
 	margin: 20px;
+    margin-right: 0px;
+    margin-left: 0px;
     padding: 0px;
 }
 .item_card > a {
@@ -62,6 +65,17 @@ body {
 }
 .pull-left{
     width: 50%;
+}
+@media(min-width:992px) {
+    .profile_list {
+        max-height: 330px;
+        overflow-y: auto;
+        overflow-x: none;
+        padding: 0px;
+    }
+}
+.pub_info{
+    display: inline;
 }
 .headline {
     padding: 120px 0;
