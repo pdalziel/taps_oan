@@ -12,12 +12,18 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
 
+
+def yelp_search(request):
+    context_dict = {}
+
+
 # A helper method
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
     if not val:
         val = default_val
     return val
+
 
 # Updated the function definition
 def visitor_cookie_handler(request):
@@ -31,7 +37,7 @@ def visitor_cookie_handler(request):
     # If it's been more than a day since the last visit...
     if (datetime.now() - last_visit_time).days > 0:
         visits = visits + 1
-        #update the last visit cookie now that we have updated the count
+        # update the last visit cookie now that we have updated the count
         request.session['last_visit'] = str(datetime.now())
     else:
         visits = 1
@@ -40,93 +46,98 @@ def visitor_cookie_handler(request):
 
     # Update/set the visits cookie
     request.session['visits'] = visits
-    
+
+
 def index(request):
     request.session.set_test_cookie()
     pub_list = Pub.objects.order_by('-likes')[:5]
     beer_list = Beer.objects.order_by('-views')[:5]
     context_dict = {'pubs': pub_list, 'beers': beer_list}
-        
+
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
-    
+
     response = render(request, 'taps_oan/index.html', context=context_dict)
     return response
 
+
 def about(request):
-    if request.session.test_cookie_worked(): 
-        print("TEST COOKIE WORKED!") 
+    if request.session.test_cookie_worked():
+        print("TEST COOKIE WORKED!")
         request.session.delete_test_cookie()
     visitor_cookie_handler(request)
-    context_dict = {'visits' : request.session['visits']}
+    context_dict = {'visits': request.session['visits']}
     return render(request, 'taps_oan/about.html', context=context_dict)
 
+
 def show_pub(request, pub_name_slug):
-	# Create a context dictionary which we can pass 
-	# to the template rendering engine.
-	context_dict = {}
-	try:
-		# Can we find a pub name slug with the given name?
-		# If we can't, the .get() method raises a DoesNotExist exception.
-		# So the .get() method returns one model instance or raises an exception.
-		pub = Pub.objects.get(slug=pub_name_slug)
+    # Create a context dictionary which we can pass
+    # to the template rendering engine.
+    context_dict = {}
+    try:
+        # Can we find a pub name slug with the given name?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+        pub = Pub.objects.get(slug=pub_name_slug)
 
-		# Retrieve all of the associated beers.
-		# Note that filter() will return a list of beer objects or an empty list
-		beers = Beer.objects.filter(pub=pub)
-                #beers = Pub.objects.get(beers)
+        # Retrieve all of the associated beers.
+        # Note that filter() will return a list of beer objects or an empty list
+        beers = Beer.objects.filter(pub=pub)
+        # beers = Pub.objects.get(beers)
 
-		# Adds our results list to the template context under name beers.
-		context_dict['beers'] = beers
-		# We also add the pub object from 
-		# the database to the context dictionary.
-		# We'll use this in the template to verify that the pub exists.
-		context_dict['pub'] = pub
-	except Pub.DoesNotExist:
-		# We get here if we didn't find the specified pub.
-		# Don't do anything - 
-		# the template will display the "no pub" message for us.
-		context_dict['pub'] = None
-		context_dict['beers'] = None
-    # Go render the response and return it to the client.
-	return render(request, 'taps_oan/pub.html', context_dict)
+        # Adds our results list to the template context under name beers.
+        context_dict['beers'] = beers
+        # We also add the pub object from
+        # the database to the context dictionary.
+        # We'll use this in the template to verify that the pub exists.
+        context_dict['pub'] = pub
+    except Pub.DoesNotExist:
+        # We get here if we didn't find the specified pub.
+        # Don't do anything -
+        # the template will display the "no pub" message for us.
+        context_dict['pub'] = None
+        context_dict['beers'] = None
+        # Go render the response and return it to the client.
+    return render(request, 'taps_oan/pub.html', context_dict)
+
 
 def show_beer(request, beer_name_slug):
-	# Create a context dictionary which we can pass 
-	# to the template rendering engine.
-	context_dict = {}
-	exception = False
-	try:
-		# Can we find a pub name slug with the given name?
-		# If we can't, the .get() method raises a DoesNotExist exception.
-		# So the .get() method returns one model instance or raises an exception.
-		beer = Beer.objects.get(slug=beer_name_slug)
-	except Beer.DoesNotExist:
-		# We get here if we didn't find the specified pub.
-		# Don't do anything - 
-		# the template will display the "no pub" message for us.
-		context_dict['beer'] = None
-		context_dict['pubs'] = None
-		exception = True
-	if not exception:
-		# Retrieve all of the associated beers.
-		# Note that filter() will return a list of beer objects or an empty list
-		#pubs = Pub.beers.filter(beers_in=beer)
-		pubs = Pub.objects.filter(beers__in=[beer])
-		# Adds our results list to the template context under name beers.
-		context_dict['pubs'] = list(pubs)
-		# We also add the pub object from 
-		# the database to the context dictionary.
-		# We'll use this in the template to verify that the pub exists.
-		context_dict['beer'] = beer
-		# Go render the response and return it to the client.
-		print context_dict['pubs']
-	return render(request, 'taps_oan/beer.html', context_dict)
-    
+    # Create a context dictionary which we can pass
+    # to the template rendering engine.
+    context_dict = {}
+    exception = False
+    try:
+        # Can we find a pub name slug with the given name?
+        # If we can't, the .get() method raises a DoesNotExist exception.
+        # So the .get() method returns one model instance or raises an exception.
+        beer = Beer.objects.get(slug=beer_name_slug)
+    except Beer.DoesNotExist:
+        # We get here if we didn't find the specified pub.
+        # Don't do anything -
+        # the template will display the "no pub" message for us.
+        context_dict['beer'] = None
+        context_dict['pubs'] = None
+        exception = True
+    if not exception:
+        # Retrieve all of the associated beers.
+        # Note that filter() will return a list of beer objects or an empty list
+        # pubs = Pub.beers.filter(beers_in=beer)
+        pubs = Pub.objects.filter(beers__in=[beer])
+        # Adds our results list to the template context under name beers.
+        context_dict['pubs'] = list(pubs)
+        # We also add the pub object from
+        # the database to the context dictionary.
+        # We'll use this in the template to verify that the pub exists.
+        context_dict['beer'] = beer
+        # Go render the response and return it to the client.
+        print context_dict['pubs']
+    return render(request, 'taps_oan/beer.html', context_dict)
+
+
 @login_required
 def add_pub(request):
     form = PubForm()
-    
+
     # A HTTP POST?
     if request.method == 'POST':
         form = PubForm(request.POST)
@@ -143,10 +154,11 @@ def add_pub(request):
             # The supplied form contained errors -
             # just print them to the terminal.
             print(form.errors)
-    
+
     # Will handle the bad form, new form, or no form supplied cases.
     # Render the form with error messages (if any).
     return render(request, 'taps_oan/add_pub.html', {'form': form})
+
 
 @login_required
 def add_beer(request, pub_name_slug):
@@ -154,7 +166,7 @@ def add_beer(request, pub_name_slug):
         pub = Pub.objects.get(slug=pub_name_slug)
     except Pub.DoesNotExist:
         pub = None
-    
+
     form = BeerForm()
     if request.method == 'POST':
         form = BeerForm(request.POST)
@@ -167,15 +179,16 @@ def add_beer(request, pub_name_slug):
                 return show_pub(request, pub_name_slug)
         else:
             print(form.errors)
-    
-    context_dict = {'form':form, 'pub': pub}
+
+    context_dict = {'form': form, 'pub': pub}
     return render(request, 'taps_oan/add_beer.html', context_dict)
 
-def register(request): 
-	# A boolean value for telling the template 
-	# whether the registration was successful. 
-	# Set to False initially. Code changes value to
-	# True when registration succeeds. 
+
+def register(request):
+    # A boolean value for telling the template
+    # whether the registration was successful.
+    # Set to False initially. Code changes value to
+    # True when registration succeeds.
     registered = False
 
     # If it's a HTTP POST, we're interested in processing form data.
@@ -204,7 +217,7 @@ def register(request):
 
             # Did the user provide a profile picture?
             # If so, we need to get it from the input form and 
-            #put it in the UserProfile model.
+            # put it in the UserProfile model.
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
 
@@ -228,8 +241,9 @@ def register(request):
     return render(request,
                   'taps_oan/register.html',
                   {'user_form': user_form,
-                   'profile_form': profile_form, 
+                   'profile_form': profile_form,
                    'registered': registered})
+
 
 def user_login(request):
     # If the request is a HTTP POST, try to pull out the relevant information.
@@ -243,11 +257,11 @@ def user_login(request):
         # will raise a KeyError exception.
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
+
         # Use Django's machinery to attempt to see if the username/password
         # combination is valid - a User object is returned if it is.
         user = authenticate(username=username, password=password)
-        
+
         # If we have a User object, the details are correct.
         # If None (Python's way of representing the absence of a value), no user
         # with matching credentials was found.
@@ -265,7 +279,7 @@ def user_login(request):
             # Bad login details were provided. So we can't log the user in.
             print("Invalid login details: {0}, {1}".format(username, password))
             return HttpResponse("Invalid login details supplied.")
-        
+
     # The request is not a HTTP POST, so display the login form.
     # This scenario would most likely be a HTTP GET.
     else:
@@ -280,4 +294,3 @@ def user_logout(request):
     logout(request)
     # Take the user back to the homebeer.
     return HttpResponseRedirect(reverse('index'))
-    
