@@ -1,9 +1,14 @@
-Django==1.10.3
+appdirs==1.4.2
 coverage==4.3.4
+Django==1.10.3
 django-allauth==0.30.0
 oauthlib==2.0.1
 olefile==0.44
-pillow==4.0.0
+packaging==16.8
+Pillow==4.0.0
+pyparsing==2.1.10
 python-openid==2.2.5
 requests==2.13.0
 requests-oauthlib==0.8.0
+six==1.10.0
+yelpapi==2.0.1
