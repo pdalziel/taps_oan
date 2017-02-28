@@ -173,14 +173,6 @@ def add_beer(request, pub_name_slug):
         form = BeerForm(request.POST)
         if form.is_valid():
             if pub:
-                """
-                beer = form.save(commit=False)
-                beer.pub = pub
-                beer.views = 0
-                beer.save()
-                """
-
-                print form.cleaned_data['title']
                 beer, created = Beer.objects.get_or_create(title=form.cleaned_data['title'])
                 pub.beers.add(beer)
                 return show_pub(request, pub_name_slug)
