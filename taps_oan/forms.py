@@ -16,25 +16,14 @@ class PubForm(forms.ModelForm):
 class BeerForm(forms.ModelForm):
     title = forms.CharField(max_length=128,
                             help_text="Please enter the title of the beer.")
-    url = forms.URLField(max_length=200, 
-                        help_text="Please enter the URL of the beer.")
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = Beer
-
+        fields = ('title',)
         exclude = ('pub',)
-
-    def clean(self):
-        cleaned_data = self.cleaned_data
-        url = cleaned_data.get('url')
-
-        # If url is not empty and doesn't start with 'http://', 
-        # then prepend 'http://'.
-        if url and not url.startswith('http://'):
-            url = 'http://' + url
-            cleaned_data['url'] = url
-
-            return cleaned_data
 
 class UserForm(forms.ModelForm): 
     password = forms.CharField(widget=forms.PasswordInput())
