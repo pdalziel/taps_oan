@@ -200,7 +200,6 @@ def add_carrier(request, beer_name_slug):
                 #stack overflow says override clean() or validate_unique()
                 #tried making it a form instead of modelform
                 pub, created = Pub.objects.get_or_create(**form.cleaned_data)
-                print pub
                 pub.beers.add(beer)
                 #pub.save()
                 return show_beer(request, beer_name_slug)
@@ -210,6 +209,11 @@ def add_carrier(request, beer_name_slug):
     context_dict = {'form' : form, 'beer' : beer}
     return render(request, 'taps_oan/add_carrier.html', context_dict)
 
+
+@login_required
+def account(request):
+
+    return render(request, 'taps_oan/account.html')
 
 
 def register(request):

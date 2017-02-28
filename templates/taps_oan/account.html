@@ -1,0 +1,13 @@
+{% extends 'taps_oan/base.html' %}
+{% load staticfiles %}
+
+
+{% block title_block %}
+Account Settings
+{% endblock %}
+
+
+{% block body_block %}
+  <h1>Hello, {{request.user.username}}!</h1>
+  
+{% endblock %}
