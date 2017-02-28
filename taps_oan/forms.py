@@ -13,6 +13,8 @@ class PubForm(forms.ModelForm):
         model = Pub
         fields = ('name',)
 
+""" Not used anymore - always threw an integrity issue when adding adding
+    a beer that already existed.
 class BeerForm(forms.ModelForm):
     title = forms.CharField(max_length=128,
                             help_text="Please enter the title of the beer.")
@@ -24,6 +26,7 @@ class BeerForm(forms.ModelForm):
         model = Beer
         fields = ('title',)
         exclude = ('pub',)
+"""
 
 class UserForm(forms.ModelForm): 
     password = forms.CharField(widget=forms.PasswordInput())
@@ -38,5 +41,18 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ('website', 'picture')
 
+class BeerForm(forms.Form):
+    title = forms.CharField(max_length=128,
+                            help_text="Please enter the title of the beer.")
+    views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
+    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    class Meta:
+        fields = ('title')
+
 class CarrierForm(forms.Form):
     name = forms.CharField(max_length=128, help_text="Please enter the title of the beer carrier.")
+
+    class Meta:
+        fields = ('name')
