@@ -26,18 +26,19 @@ Index
   <div class="featurette" id="about">
     <div class="pull-right img-responsive">
       {% if pubs %}
-      <ul>
-	{% for pub in pubs %}
-	<ul class='item_card'>
-          <button type="button" class="btn btn-secondary btn-lg" onclick="window.location='/taps_oan/pub/{{ pub.slug }}'">{{ pub.name }}</button>
-	</ul>
-	{% endfor %}
-      </ul>
+      	{% for pub in pubs %}
+      	<ul class='item_card'>
+                <button type="button" class="btn btn-secondary btn-lg" onclick="window.location='/taps_oan/pub/{{ pub.slug }}'">{{ pub.name }}</button>
+      	</ul>
+      	{% endfor %}
       {% else %}
       <ul class='item_card'>
 	       <h1>No pubs...yet!</h1>
       </ul>
-      {% endif %}	
+      {% endif %}
+    <ul class='item_card'>
+      <button class="btn btn-default btn-lg" onclick="window.location='taps_oan/add_pub'"><span class="add_pub glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Add Pub</button>
+    </ul>
     </div>
     <h2 class="featurette-heading">Most Popular Pubs</h2>
     <p class="lead">See the best pubs around you.</p>
