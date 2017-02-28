@@ -23,6 +23,7 @@ class Beer(models.Model):
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
+        setattr(self, 'title', self.title.title())
         self.slug = slugify(self.title)
         super(Beer, self).save(*args, **kwargs)
 
@@ -41,6 +42,7 @@ class Pub(models.Model):
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
+        setattr(self, 'name', self.name.title())
         self.slug = slugify(self.name)
         super(Pub, self).save(*args, **kwargs)
 

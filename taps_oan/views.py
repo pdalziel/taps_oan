@@ -6,6 +6,7 @@ from taps_oan.forms import PubForm
 from taps_oan.forms import BeerForm
 from taps_oan.forms import CarrierForm
 from taps_oan.forms import UserForm, UserProfileForm
+from django.template.defaultfilters import slugify
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
@@ -173,7 +174,7 @@ def add_beer(request, pub_name_slug):
         form = BeerForm(request.POST)
         if form.is_valid():
             if pub:
-                beer, created = Beer.objects.get_or_create(title=form.cleaned_data['title'])
+                beer, created = Beer.objects.get_or_create(title=form.cleaned_data['title'].title())
                 pub.beers.add(beer)
                 return show_pub(request, pub_name_slug)
         else:
@@ -181,6 +182,7 @@ def add_beer(request, pub_name_slug):
 
     context_dict = {'form': form, 'pub': pub}
     return render(request, 'taps_oan/add_beer.html', context_dict)
+
 
 @login_required
 def add_carrier(request, beer_name_slug):
@@ -198,8 +200,7 @@ def add_carrier(request, beer_name_slug):
                 #I cant get this to work when adding a pub that already exists!
                 #stack overflow says override clean() or validate_unique()
                 #tried making it a form instead of modelform
-                print form.cleaned_data['name']
-                pub, created = Pub.objects.get_or_create(name=form.cleaned_data['name'])
+                pub, created = Pub.objects.get_or_create(name=form.cleaned_data['name'].title())
                 pub.beers.add(beer)
                 return show_beer(request, beer_name_slug)
         else:
