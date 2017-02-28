@@ -9,7 +9,7 @@
 	{% if beer %}
 	<h1>Add a pub that carries {{ beer.title }}</h1>
 	<div>
-		<form id="pub_form" method="post" action="/taps_oan/beer/{{ beer.slug }}/add_carrier/">
+		<form id="carrier_form" method="post" action="/taps_oan/beer/{{ beer.slug }}/add_carrier/">
 			{% csrf_token %}
 			{% for hidden in form.hidden_fields %}
 				{{ hidden }}

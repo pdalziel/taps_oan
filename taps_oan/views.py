@@ -185,7 +185,7 @@ def add_beer(request, pub_name_slug):
 
 @login_required
 def add_carrier(request, beer_name_slug):
-    form = PubForm
+    form = PubForm()
 
     try:
         beer = Beer.objects.get(slug=beer_name_slug)
@@ -196,6 +196,9 @@ def add_carrier(request, beer_name_slug):
         form = PubForm(request.POST)
         if form.is_valid():
             if beer:
+                #I cant get this to work when adding a pub that already exists!
+                #stack overflow says override clean() or validate_unique()
+                #tried making it a form instead of modelform
                 pub, created = Pub.objects.get_or_create(**form.cleaned_data)
                 print pub
                 pub.beers.add(beer)
