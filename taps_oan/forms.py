@@ -32,12 +32,11 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password')
 
-
-class CarrierForm(forms.Form):
-    title = forms.CharField(max_length=128, help_text="Please enter the title of the beer carrier.")
-
 class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
         fields = ('website', 'picture')
+
+class CarrierForm(forms.Form):
+    name = forms.CharField(max_length=128, help_text="Please enter the title of the beer carrier.")

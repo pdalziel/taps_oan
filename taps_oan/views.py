@@ -4,6 +4,7 @@ from taps_oan.models import Pub
 from taps_oan.models import Beer
 from taps_oan.forms import PubForm
 from taps_oan.forms import BeerForm
+from taps_oan.forms import CarrierForm
 from taps_oan.forms import UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
@@ -185,7 +186,7 @@ def add_beer(request, pub_name_slug):
 
 @login_required
 def add_carrier(request, beer_name_slug):
-    form = PubForm()
+    form = CarrierForm()
 
     try:
         beer = Beer.objects.get(slug=beer_name_slug)
@@ -193,15 +194,15 @@ def add_carrier(request, beer_name_slug):
         beer = None
 
     if request.method == 'POST':
-        form = PubForm(request.POST)
+        form = CarrierForm(request.POST)
         if form.is_valid():
             if beer:
                 #I cant get this to work when adding a pub that already exists!
                 #stack overflow says override clean() or validate_unique()
                 #tried making it a form instead of modelform
-                pub, created = Pub.objects.get_or_create(**form.cleaned_data)
+                print form.cleaned_data['name']
+                pub, created = Pub.objects.get_or_create(name=form.cleaned_data['name'])
                 pub.beers.add(beer)
-                #pub.save()
                 return show_beer(request, beer_name_slug)
         else:
             print form.errors
