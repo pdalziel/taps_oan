@@ -22,5 +22,7 @@ urlpatterns = [
         views.user_logout, name='logout'),
     url(r'^account/$',
         views.account, name='account'),
+    url(r'^yelp/(?P<pub_name>[\w\-]+)/$', 
+        views.yelpLookUp, name='yelpLookUp'),
 
 ]

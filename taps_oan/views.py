@@ -9,15 +9,39 @@ from taps_oan.forms import UserForm, UserProfileForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect, HttpResponse
+from django.http import JsonResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from datetime import datetime
-
+import requests
+import json
 
 def yelp_search(request):
     context_dict = {}
 
+def yelpLookUp(request, pub_name):
+    #Sanatize pub_name from slug to readable string 
+    pub_name = pub_name.replace('-'," ")
+    #Read in secrets
+    f = open('secret.json')
+    post_data = json.load(f)
+    f.close()
+    print post_data
+    #Post secret to yelp to acquire token
+    r = requests.post('https://api.yelp.com/oauth2/token', data=post_data)
+    #Check response code is okay
+    if r.status_code >= 400:
+        return JsonResponse({'err':'Trouble validating YELP token'},status=404)
+    #Extract token
+    token = r.json().get('access_token')
+    #Look up pub, in Glasgow, sort by most relevant and retrieve only 1 result 
+    r = requests.get('https://api.yelp.com/v3/businesses/search?term='+pub_name+'&location=Glasgow,UK&sort_by=best_match&limit=1', headers={'Authorization': 'Bearer '+token})
+    #Check status OK
+    if r.status_code >= 400:
+        return JsonResponse({'err':'Trouble fetching pub '+pub_name},status=404)
+    #Send back to front end
+    return JsonResponse(r.json())
 
 # A helper method
 def get_server_side_cookie(request, cookie, default_val=None):
