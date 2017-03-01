@@ -23,11 +23,13 @@
 
     <!-- Custom CSS -->
     <link href="{% static "css/main.css" %}" rel="stylesheet">
+    <link href="{% static "css/taps_oan.css" %}" rel="stylesheet">
 
 
 </head>
 
 <body>
+<div class="container">
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -63,16 +65,17 @@
 {% block header_block %}
 {% endblock %}
 
-<div class="container">
+
 
     {% block body_block %}
 
     {% endblock %}
 
-    <hr>
+
     <footer>
-        <div class="row">
-            <div class="col-lg-12">
+        <div class="navbar">
+            <div class="row">
+                <div class="col-lg-offset-0">
                 <b>Team R</b>
                 <div>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a>
                     from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a
@@ -81,6 +84,7 @@
                 <div>Banner image credit goes to <a
                         href="https://pixabay.com/en/beer-beverage-drink-alcohol-glass-681807/">tykejones</a></div>
             </div>
+        </div>
         </div>
     </footer>
 
