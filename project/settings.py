@@ -18,6 +18,12 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -46,6 +52,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
+    'whoosh',
+    'haystack',
     'taps_oan',
 ]
 
@@ -92,6 +100,7 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID=1
 WSGI_APPLICATION = 'project.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
@@ -125,8 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 PASSWORD_HASHERS = ['django.contrib.auth.hashers.PBKDF2PasswordHasher',
                     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-                    ]
-# Internationalization
+                    ]# Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -145,6 +153,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [STATIC_DIR, ]
+
 
 # MEDIA declerations
 MEDIA_ROOT = MEDIA_DIR

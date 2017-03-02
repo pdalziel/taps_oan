@@ -1,0 +1,64 @@
+{% extends 'taps_oan/base.html' %}
+
+{% block body_block %}
+    <h2>Search</h2>
+
+    <form method="get" action=".">
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Search">
+                </td>
+            </tr>
+        </table>
+
+        {% if query %}
+            <h3>Results</h3>
+ <div class="text-justify">
+            {% for result in page.object_list %}
+
+                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a>
+                </div>
+            {% empty %}
+                <p>No results found.</p>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+    </form>
+{% endblock %}
+
+{% comment %}
+<div class="row">
+
+    <div class="col-sm-6 col-md-4 col-md-offset-4">
+        <div class="h2">Login to Taps Oan</div>
+
+        <form id="login_form" method="post" action="{% url 'login' %}">
+            <div class="form-group">
+                <label fo r="exampleInputEmail1">Username</label>
+                {% csrf_token %}
+                <input type="text" class="form-control" id="exampleInputEmail1" name="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+        <div class="fb-login-button" data-max-rows="1" data-size="xlarge" data-show-faces="false"
+             data-auto-logout-link="true">
+        </div>
+    </div>
+    </div>
+{% endcomment %}

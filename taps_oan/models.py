@@ -17,21 +17,24 @@ class YelpSearch(models.Model):
 
 
 class Beer(models.Model):
-    title = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128, unique=True)
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
 
+    def get_absolute_url(self):
+        return "/taps_oan/beer/%s/" % self.slug
+
     def save(self, *args, **kwargs):
-        setattr(self, 'title', self.title.title())
-        self.slug = slugify(self.title)
+        setattr(self, 'title', self.name.title())
+        self.slug = slugify(self.name)
         super(Beer, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.title
+        return self.name
 
     def __unicode__(self):
-            return self.title
+            return self.name
 
 
 class Pub(models.Model):
@@ -40,6 +43,9 @@ class Pub(models.Model):
     views = models.IntegerField(default=0)
     likes = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+
+    def get_absolute_url(self):
+        return "/taps_oan/pub/%s/" % self.slug
 
     def save(self, *args, **kwargs):
         setattr(self, 'name', self.name.title())

@@ -9,7 +9,7 @@ class PubAdmin(admin.ModelAdmin):
 
 
 class BeerAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {'slug': ('name',)}
 
 
 admin.site.register(Pub, PubAdmin)
