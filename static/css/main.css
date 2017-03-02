@@ -18,6 +18,12 @@ body {
     background-size: cover;
     -o-background-size: cover;
 }
+.open_pub {
+    color: green;
+}
+.closed_pub {
+    color: red;
+}
 #main_search {
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
@@ -54,6 +60,9 @@ body {
 	backface-visibility: hidden;
 	perspective: 1000px;
 }
+.dark {
+    background-color: rgb(192, 192, 192);
+}
 .add_pub {
     float: left;
     height: 20px;
@@ -66,9 +75,11 @@ body {
 .pull-left{
     width: 50%;
 }
+.profile_list > button {
+    width: 100%
+}
 @media(min-width:992px) {
     .profile_list {
-        max-height: 330px;
         overflow-y: auto;
         overflow-x: none;
         padding: 0px;
@@ -76,6 +87,22 @@ body {
 }
 .pub_info{
     display: inline;
+    padding: 10px;
+}
+#pub_rating_no {
+    display: inline;
+    font-size: 10px;
+    margin-left: -10px;
+    color: #777;
+}
+.pub_cat {
+    display: inline-block;
+    margin-right: 13px;
+    min-width: 70px;
+    text-align: center;
+    border: 1px rgba(0,0,0,0.9) solid;
+    border-radius: 40px;
+    padding: 6px;
 }
 .headline {
     padding: 120px 0;
