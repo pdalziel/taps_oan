@@ -20,52 +20,40 @@ Index
 
 {% block body_block %}
   <!-- Page Content -->
-  <hr class="featurette-divider">
 
-  <!-- First Featurette -->
-  <div class="featurette" id="about">
-    <div class="pull-right img-responsive">
-      {% if pubs %}
-      	{% for pub in pubs %}
-      	<ul class='item_card'>
-                <button type="button" class="btn btn-secondary btn-lg" onclick="window.location='{% url 'show_pub' pub.slug %}'">{{ pub.name }}</button>
-      	</ul>
-      	{% endfor %}
-      {% else %}
-      <ul class='item_card'>
-	       <h1>No pubs...yet!</h1>
-      </ul>
-      {% endif %}
-    <ul class='item_card'>
-      <button class="btn btn-default btn-lg" onclick="window.location='{% url 'add_pub' %}'"><span class="add_pub glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Add Pub</button>
-    </ul>
+<hr class="featurette-divider" />
+<!-- First Featurette -->
+<div class="featurette" id="about">
+    <div class="float-right img-fluid">{% if pubs %} {% for pub in pubs %}
+        <ul class="item_card">
+            <button type="button" class="btn btn-secondary btn-lg" onclick="window.location='{% url 'show_pub' pub.slug %}'">{{ pub.name }}</button>
+        </ul>{% endfor %} {% else %}
+        <ul class="item_card">
+             <h1>No pubs...yet!</h1>
+        </ul>{% endif %}
+        <ul class="item_card">
+            <button class="btn btn-secondary btn-lg" onclick="window.location='{% url 'add_pub' %}'"><span class="add_pub glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Add
+                Pub</button>
+        </ul>
     </div>
-    <h2 class="featurette-heading">Most Popular Pubs</h2>
+     <h2 class="featurette-heading">Most Popular Pubs</h2>
     <p class="lead">See the best pubs around you.</p>
-  </div>
-
+</div>
   <hr class="featurette-divider">
 
   <!-- Second Featurette -->
-  <div class="featurette" id="services">
-    <div class="pull-right img-responsive">
-      {% if beers %}
-      <ul>
-	{% for beer in beers %}
-	<ul class='item_card'>
-  <button type="button" class="btn btn-secondary btn-lg" onclick="window.location='{% url 'show_beer' beer.slug %}'">{{ beer.title }}</button>
-	</ul>
-	{% endfor %}
-      </ul>
-      {% else %}
-      <ul class='item_card'>
-	       <h1>No beer...yet!</h1>
-      </ul>
-      {% endif %}	
-    </div>
-    <h2 class="featurette-heading">Most Liked Beers</h2>
+<div class="featurette" id="services">
+    <div class="float-right img-fluid">{% if beers %}
+        <ul>{% for beer in beers %}
+            <ul class="item_card">
+                <button type="button" class="btn btn-secondary btn-lg" onclick="window.location='{% url 'show_beer' beer.slug %}'">{{ beer.title }}</button>
+            </ul>{% endfor %}</ul>{% else %}
+        <ul class="item_card">
+             <h1>No beer...yet!</h1>
+        </ul>{% endif %}</div>
+     <h2 class="featurette-heading">Most Liked Beers</h2>
     <p class="lead">Taste the best beers.</p>
-  </div>
+</div>
   
   <!--<hr class="featurette-divider">-->
 
